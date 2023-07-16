@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Booking Appointment</h1>
+    <form style="display: flex; gap:20px">
+        <div>
+            <label>Name</label>
+            <input id="name" type="text"/>
+
+        </div>
+        <div>
+            <label>Email Id</label>
+            <input type="email" id="email"/>
+        </div>
+        <div>
+            <label>Phone Number</label>
+            <input type="number" id="phone"/>
+        </div>
+        <button type="button" onclick="booked()">Submit</button>
+    </form>
+
+    <h2>Bookings</h2>
+    <ul id="booking-list"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+
+    <script src="index.js"></script>
+    
+</body>
+</html>
