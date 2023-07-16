@@ -10,53 +10,58 @@ function booked(){
         phone
 
     }
-    axios.post("https://crudcrud.com/api/87112d1039ef4c9e93a9edbe6cdd5811/appointmentData",obj).then((response)=>{
+    axios.post("https://crudcrud.com/api/5727ff58b8f54a75a27efa318c71a702/appointmentData",obj).then((response)=>{
         displayBookings();
         console.log(response);
     }).catch((err)=>{
         console.log(err);
     })
 }
+window.addEventListener("DOMContentLoaded",()=>{
+    displayBookings();
 
-function displayBookings(){
-    axios.get("https://crudcrud.com/api/87112d1039ef4c9e93a9edbe6cdd5811/appointmentData").then((response)=>{
-     bookings = response.data;
-    var bookingList = document.getElementById("booking-list");
-    bookingList.innerHTML="";
-    for(var i=0;i<bookings.length;i++){
-        var booking = bookings[i];
-        var listItem = document.createElement("li");
-        listItem.textContent=booking.name +" | "+booking.email + " | " + booking.phone;
-        
-        var editButton = document.createElement("button");
-        editButton.textContent="Edit";
-        editButton.setAttribute("data-index",booking._id);
-
-        editButton.addEventListener("click",function(){
-            var index = booking._id;
-            console.log(index);
-            editBooking(index);
-        })
-
-        var deleteButton = document.createElement("button");
-        deleteButton.textContent="Delete";
-        deleteButton.setAttribute("data-index",booking._id);
-        deleteButton.addEventListener("click",function(){
-            var index = booking._id;
-            deleteBooking(index);
-        })
-
-
-
-
-        listItem.appendChild(editButton);
-        listItem.appendChild(deleteButton);
-        bookingList.appendChild(listItem);
-    }
-    })
-   
-    
-}
+})
+function displayBookings() {
+    axios.get("https://crudcrud.com/api/5727ff58b8f54a75a27efa318c71a702/appointmentData")
+      .then((response) => {
+        bookings = response.data;
+        var bookingList = document.getElementById("booking-list");
+        bookingList.innerHTML = "";
+        for (var i = 0; i < bookings.length; i++) {
+          var booking = bookings[i];
+          var listItem = document.createElement("li");
+          listItem.textContent = booking.name + " | " + booking.email + " | " + booking.phone;
+  
+          var editButton = createEditButton(booking._id);
+          var deleteButton = createDeleteButton(booking._id);
+  
+          listItem.appendChild(editButton);
+          listItem.appendChild(deleteButton);
+          bookingList.appendChild(listItem);
+        }
+      });
+  }
+  
+  // Function to create an edit button with a closure to capture the correct index
+  function createEditButton(id) {
+    var editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.addEventListener("click", function () {
+      editBooking(id);
+    });
+    return editButton;
+  }
+  
+  // Function to create a delete button with a closure to capture the correct index
+  function createDeleteButton(id) {
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.addEventListener("click", function () {
+      deleteBooking(id);
+    });
+    return deleteButton;
+  }
+  
 
 function editBooking(index){
     var editProfile;
@@ -86,7 +91,7 @@ function deleteBooking(index){
         }
     }
 
-    axios.delete(`https://crudcrud.com/api/87112d1039ef4c9e93a9edbe6cdd5811/appointmentData/${index}`).then((response)=>{
+    axios.delete(`https://crudcrud.com/api/5727ff58b8f54a75a27efa318c71a702/appointmentData/${index}`).then((response)=>{
         displayBookings();
     })
 }
